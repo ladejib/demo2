@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   # pull_request:
-  #   branches: [ main ]
+  #   branches: [ main ]  
 
 jobs:
   test:
@@ -14,9 +14,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
+
     - name: Set up Docker Compose
       run: |
-        docker-compose up flask_app/docker-compose.yaml --build --abort-on-container-exit
+        docker compose up -f flask_app/docker-compose.yaml --build --abort-on-container-exit
 
     - name: Archive test reports
       if: always()  # Always try to upload, even if tests fail
