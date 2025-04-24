@@ -1,0 +1,10 @@
+============================= test session starts ==============================
+platform linux -- Python 3.11.12, pytest-8.3.5, pluggy-1.5.0
+rootdir: /app
+plugins: metadata-3.1.1, html-4.1.1
+collected 6 items
+
+tests/test_api.py ......                                                 [100%]
+
+--- Generated html report: file:///results/test_report_20250424_153717.html ----
+============================== 6 passed in 0.57s ===============================

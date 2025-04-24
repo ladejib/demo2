@@ -1,0 +1,33 @@
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    networks:
+      - testnet
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  test:
+    build: .
+    depends_on:
+      app:
+        condition: service_healthy
+    entrypoint: >
+      sh -c 'echo "Waiting for app to be healthy..." &&
+      DATE=$$(date +%Y%m%d_%H%M%S) &&
+      echo "Using timestamp: $$DATE" &&
+      pytest tests/ --disable-warnings --tb=short --maxfail=3 \
+        --html=/results/test_report_$${DATE}.html --self-contained-html \
+        | tee /results/test_log_$${DATE}.txt'
+    volumes:
+      - ./results:/results
+    networks:
+      - testnet
+
+networks:
+  testnet:

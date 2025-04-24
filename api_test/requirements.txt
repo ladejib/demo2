@@ -1,0 +1,7 @@
+pytest
+requests
+pytest-xdist
+pytest-rerunfailures
+jsonschema
+allure-pytest
+
